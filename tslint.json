@@ -1,0 +1,14 @@
+{
+  "rules": {
+    "typedef": [
+      true,
+      "call-signature",
+      "arrow-call-signature",
+      "property-declaration",
+      "parameter",
+      "arrow-parameter"
+    ],
+    "semicolon": true,
+    "quotemark": [true, "double"]
+  }
+}
