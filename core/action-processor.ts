@@ -1,5 +1,4 @@
-import { ActionContext, Action } from "../common/index.ts";
-import { isolate } from "./errors.ts";
+import { ActionContext, Action, isolate, Result } from "../common/mod.ts";
 
 // interface ActionRequest {
 //   action: Action,
@@ -35,15 +34,11 @@ interface Params {
 
 const get = (params: Params) => (id: string) => params[id];
 
-// TODO: to implement
-const out = () => {}
-
 const createContext = (action: Action, params: Params): ActionContext => ({
   get: get(params),
-  out
 });
 
-export const execute = async (action: Action, params: Params): Promise<any> => {
+export const execute = async (action: Action, params: Params): Promise<Result<any, Error>> => {
   const context = createContext(action, params);
   return isolate(action.resolver, context);
 };

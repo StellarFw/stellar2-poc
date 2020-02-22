@@ -1,4 +1,4 @@
-import { equals } from "./boolean.ts";
+import { equals } from "./logic.ts";
 import { panic } from "./execution.ts";
 
 /**

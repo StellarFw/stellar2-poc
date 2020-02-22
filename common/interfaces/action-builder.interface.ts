@@ -25,11 +25,6 @@ export interface ActionBuilder {
   input: (name: string, type: DataType, description?: string) => ActionFunctor,
 
   /**
-   * Defines a new output for the Action.
-   */
-  output: (name: string, type: DataType, description?: string) => ActionFunctor,
-
-  /**
    * Defines the resolver for the action.
    */
   resolver: (fn: ActionResolver) => ActionFunctor,

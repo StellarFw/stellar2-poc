@@ -1,22 +1,10 @@
-import { ActionBuilder, Action, ActionFunctor, DataType, Input, Output, ActionResolver } from "common";
-
-function onErrorHandler(error) {
-  // TODO: do something with the error, for now just print the error on the screen
-  console.log("ERROR:", error)
-}
+import { ActionBuilder, Action, ActionFunctor, DataType, Input, ActionResolver } from "common";
 
 function create(name: string, description: string): Action {
   return {
     name, 
     description,
     inputs: {},
-    outputs: {
-      error: {
-        name: "Error",
-        description: "Default output error for when an exception occurs inside action",
-        type: Object,
-      }
-    },
 
     resolver: () => {}
   }
@@ -34,18 +22,6 @@ const input = (name: string, type: DataType, description?: String) => (action: A
   }
 };
 
-const output = (name: string, type: DataType, description?: String) => (action: Action)  => {
-  const newOutput = { name, type, description };
-
-  return {
-    ...action,
-    outputs: {
-      ...action.outputs,
-      [name]: newOutput
-    }
-  }
-}
-
 const resolver = (resolver: ActionResolver) => (action: Action) => {
   return {
     ...action,
@@ -58,7 +34,6 @@ const compose = (...fns: Array<ActionFunctor>) => (action: Action) => fns.reduce
 export const builder: ActionBuilder = {
   create,
   input,
-  output,
   resolver,
   compose
 } as ActionBuilder;

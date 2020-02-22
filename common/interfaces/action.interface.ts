@@ -26,26 +26,6 @@ export interface Input {
 }
 
 /**
- * Structure for an action output.
- */
-export interface Output {
-  /**
-   * Name of the output
-   */
-  name: string,
-
-  /**
-   * Description of that means if this output port is called
-   */
-  description?: String,
-
-  /**
-   * Data type of the output.
-   */
-  type: DataType,
-}
-
-/**
  * Defines the structure of the action context.
  * 
  * The context allows to get inputs and call outputs.
@@ -55,17 +35,12 @@ export interface ActionContext {
    * Get the value for a parameter.
    */
   get: (id: string) => DataType;
-
-  /**
-   * Send a value for an output port.
-   */
-  out: (id: string, value: DataType) => void;
 }
 
 /**
  * TODO: temporary, this can change
  */
-export type ActionResolver = (context: ActionContext) => Promise<void>;
+export type ActionResolver = (context: ActionContext) => Promise<any>;
 
 export interface Action {
   /**
@@ -130,8 +105,6 @@ export interface Action {
    * You can also apply restrictions to allowed inputted values.
    */
   inputs: {[key: string]: Input};
-
-  outputs: {[key: string]: Output};
 
   /**
    * TODO: finish type declaration

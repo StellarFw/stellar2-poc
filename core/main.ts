@@ -1,4 +1,4 @@
-import { ActionBuilder, ActionContext } from "common";
+import { ActionBuilder, ActionContext, Result } from "common";
 import { builder } from "./action-builder.ts";
 import { execute } from "./action-processor.ts";
 
@@ -9,15 +9,13 @@ const buildAction = (builder: ActionBuilder) => {
     builder.input("a", Number, "first number"),
     builder.input("b", Number, "second number"),
 
-    builder.output("result", Number),
-
-    builder.resolver(async (ctx: ActionContext): Promise<void> => {
+    builder.resolver(async (ctx: ActionContext): Promise<number> => {
       const a = ctx.get("a") as number;
       const b = ctx.get("b") as number;
 
-      throw new Error("TEST");
+      // throw new Error("TEST");
 
-      ctx.out("result", a + b);
+      return a + b;
     })
   )(action);
 };
@@ -25,4 +23,10 @@ const buildAction = (builder: ActionBuilder) => {
 const action = buildAction(builder);
 
 console.log("Action >", action);
-execute(action, {a: 1, b: 4}).then(r => console.log("Result >", r));
+execute(action, {a: 1, b: 4}).then(r => {
+  if (Result.isOk(r)) {
+    console.log("Ok >", Result.unwrap(r));
+  } else {
+    console.log("Err >", Result.unwrapErr(r));
+  }
+})

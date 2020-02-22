@@ -1,5 +1,5 @@
 import { when, assertTrue, assertFalse } from "./testing-fns.ts";
-import { equals } from "../fp/boolean.ts";
+import { equals } from "../fp/logic.ts";
 
 when("equals", ({test}) => {
   test("given two equals number values must return true", () => assertTrue(equals(1, 1)))
