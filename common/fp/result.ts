@@ -80,4 +80,9 @@ export namespace Result {
    * Panics if the value is an Ok, with a panic message including the passed message, and the content of the Ok.
    */
   export const unwrapErr = <T, E>(r: Result<T, E>): E => isErr(r) ? r.error : panic(r.value as any);
+
+  /**
+   * Check if the given object is an Result.
+   */
+  export const isResult = (r: any): boolean => !!r.state && [ResultState.Ok, ResultState.Err].includes(r.state);
 }

@@ -13,8 +13,6 @@ const buildAction = (builder: ActionBuilder) => {
       const a = ctx.get("a") as number;
       const b = ctx.get("b") as number;
 
-      // throw new Error("TEST");
-
       return a + b;
     })
   )(action);

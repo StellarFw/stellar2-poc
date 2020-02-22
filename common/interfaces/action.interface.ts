@@ -1,4 +1,5 @@
 import { LogLevel } from "../enums/log-level.enum.ts"
+import { Result } from "../fp/mod.ts";
 
 /**
  * Data types that a input can have.
@@ -38,9 +39,9 @@ export interface ActionContext {
 }
 
 /**
- * TODO: temporary, this can change
+ * Signature for an action resolver.
  */
-export type ActionResolver = (context: ActionContext) => Promise<any>;
+export type ActionResolver = (context: ActionContext) => Promise<Result<any, Error> | any>;
 
 export interface Action {
   /**

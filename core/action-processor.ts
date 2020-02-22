@@ -40,5 +40,11 @@ const createContext = (action: Action, params: Params): ActionContext => ({
 
 export const execute = async (action: Action, params: Params): Promise<Result<any, Error>> => {
   const context = createContext(action, params);
-  return isolate(action.resolver, context);
+  const result = await isolate(action.resolver, context);
+
+  if (Result.isOk(result) && Result.isResult(Result.unwrap(result))) {
+    return Result.unwrap(result as Result<any, Error>);
+  }
+
+  return result;
 };
