@@ -67,7 +67,13 @@ export namespace Maybe {
    * In general, because this function may panic, its use is discouraged. Instead, prefer to use pattern matching and 
    * handle the None case explicitly.
    */
-  export const unwrap = <T>(a: Maybe<T>): T => isNone(a) ? panic("trying unwrap a None value") : a.value;
+  export const unwrap = <T>(a: Maybe<T>): T => {
+    if (isNone(a)) {
+      panic("trying unwrap a None value")
+    }
+
+    return a.value!;
+  };
 
   /**
    * Returns the wrapped value or a default.
@@ -75,12 +81,12 @@ export namespace Maybe {
    * Arguments passed are eagerly evaluated; if you are passing the result of a function call, it is recommended to use 
    * `unwrapOrElse`, which is lazily evaluated.
    */
-  export const unwrapOr = <T>(a: Maybe<T>, def: T): T => isNone(a) ? def : a.value;
+  export const unwrapOr = <T>(a: Maybe<T>, def: T): T => isNone(a) ? def : a.value!;
 
   /**
    * Returns the contained value or computes it from a closure.
    */
-  export const unwrapOrElse = <T>(a: Maybe<T>, fn: () => T): T => isNone(a) ? fn() : a.value;
+  export const unwrapOrElse = <T>(a: Maybe<T>, fn: () => T): T => isNone(a) ? fn() : a.value!;
 
   /**
    * Maps a `Maybe<T>` to `Maybe<U>` by applying a function to a contained value.
